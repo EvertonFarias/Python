@@ -54,12 +54,12 @@ class ListaLigada: #Lista para armazear as instancias de pessoas
             self.ultima = novaCelula
         self.tamanho += 1
         
-    def remover(self, nome, unique_id):
+    def remover(self, name, unique_id):
         atual = self.primeira
         anterior = None
 
         while atual is not None:
-            if atual.elemento.name == nome and atual.elemento.unique_id == unique_id:
+            if atual.elemento.name == name and atual.elemento.unique_id == unique_id:
                 if atual == self.primeira:
                     self.primeira = atual.proxima
                 else:
@@ -76,7 +76,7 @@ class ListaLigada: #Lista para armazear as instancias de pessoas
             anterior = atual
             atual = atual.proxima
 
-        print(f"Pessoa com o nome '{nome}' não encontrada na lista.")
+        print(f"Pessoa com o nome '{name}' não encontrada na lista.")
         
     def exibirElementos(self):
         atual = self.primeira
@@ -85,8 +85,8 @@ class ListaLigada: #Lista para armazear as instancias de pessoas
             atual = atual.proxima;
 
 class Sala_Reuniao():
-    def __init__(self, nome, dia, id_reuniao):
-        self.nome = nome
+    def __init__(self, name, dia, id_reuniao):
+        self.name = name
         self.dia = dia
         self.pessoas = ListaLigada()
         self.status = "SEM_STATUS"

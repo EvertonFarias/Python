@@ -12,11 +12,10 @@ def remover_pessoa():
         selected_person = pessoas_listbox.get(index)  # Obtem a linha selecionada
         parts = selected_person.split(". ")
         unique_id = int(parts[0])  # Obtem o ID exclusivo
-        name = parts[1]  # Obtem o nome da pessoa
+        name = parts[1]  # Obtem o name da pessoa
 
         lista_pessoas.remover(name, unique_id)
 
-        pessoas_salaReuniao.delete(0, END)
         mostrar_pessoas()
 
 def tkAdicionarTarefa():
@@ -28,7 +27,7 @@ def tkAdicionarTarefa():
         selected_person = pessoas_listbox.get(index)  # Obtem a linha selecionada
         parts = selected_person.split(". ")
         unique_id = int(parts[0])  # Obtem o ID
-        name = parts[1]  # Obtem nome da pessoa
+        name = parts[1]  # Obtem name da pessoa
         celula = lista_pessoas.primeira.elemento
         agenda = celula.agenda
         if celula.name == name and celula.unique_id == unique_id:
@@ -42,14 +41,14 @@ def tkAdicionarTarefa():
         
 
 
-def abrir_janela(evento): #abre a janela da agenda quando clica duas vezes no nome de alguma pessoa
+def abrir_janela(evento): #abre a janela da agenda quando clica duas vezes no name de alguma pessoa
     selected_index = pessoas_listbox.curselection()
     if selected_index:
         index = int(selected_index[0])
         selected_person = pessoas_listbox.get(index)
         parts = selected_person.split(". ")
         unique_id = int(parts[0])  # Obtenha o ID exclusivo
-        name = parts[1]  # Obtenha o nome da pessoa
+        name = parts[1]  # Obtenha o name da pessoa
 
         # Abra a nova janela
         janela_agenda = Toplevel(janela)
@@ -59,7 +58,7 @@ def abrir_janela(evento): #abre a janela da agenda quando clica duas vezes no no
         agenda_listbox = Listbox(janela_agenda)
         agenda_listbox.pack()
 
-        # Encontre a pessoa correta na lista com base no nome e no ID exclusivo
+        # Encontre a pessoa correta na lista com base no name e no ID exclusivo
         atual = lista_pessoas.primeira
         while atual is not None:
             pessoa = atual.elemento
@@ -83,28 +82,27 @@ def mostrar_pessoas():
     while atual is not None:
         pessoa = atual.elemento
         pessoas_listbox.insert(END, f"{pessoa.unique_id}. {pessoa.name}")
-        pessoas_salaReuniao.insert(END, f"{pessoa.unique_id}. {pessoa.name}")
         atual = atual.proxima
 
 
 def clicar():
-    get_nome = nome_p_entry.get()
-    if get_nome:  # Verifica se o nome não está vazio
+    get_name = name_p_entry.get()
+    if get_name:  # Verifica se o name não está vazio
         global unique_id_counter
-        pessoa_ = People(get_nome, unique_id_counter)
+        pessoa_ = People(get_name, unique_id_counter)
         unique_id_counter +=1
         lista_pessoas.adicionar(pessoa_)
         mostrar_pessoas()
-        nome_p_entry.delete(0, END)  # Limpa a entrada de nome
+        name_p_entry.delete(0, END)  # Limpa a entrada de name
 
 
 
 def criar_reuniao():
     global id_reuniao_counter
-    get_nome = reuniao_nome_entry.get()
+    get_name = reuniao_name_entry.get()
     get_dia = dia_reuniao_entry.get()  # Obtenha o valor como uma string
-    if not get_nome:
-        print("Campo 'Nome' Vazio")
+    if not get_name:
+        print("Campo 'name' Vazio")
         return
     
     if not get_dia:
@@ -123,9 +121,9 @@ def criar_reuniao():
         dia_reuniao_entry.delete(0, END)
         return
     
-    nova_reuniao = Sala_Reuniao(get_nome, get_dia, id_reuniao_counter)
+    nova_reuniao = Sala_Reuniao(get_name, get_dia, id_reuniao_counter)
     lista_reunioes.adicionar(nova_reuniao)
-    reuniao_nome_entry.delete(0, END)
+    reuniao_name_entry.delete(0, END)
     dia_reuniao_entry.delete(0, END)
     id_reuniao_counter +=1
     mostrar_reunioes()  # Chama a função para atualizar a Listbox de reuniões
@@ -138,7 +136,7 @@ def mostrar_reunioes():
     atual = lista_reunioes.primeira  # Começa do primeiro nó da lista de reuniões
     while atual is not None:
         reuniao = atual.elemento
-        reunioes_listbox.insert(END, f'{reuniao.unique_id}. {reuniao.nome}')  # Adiciona o nome da reunião à Listbox
+        reunioes_listbox.insert(END, f'{reuniao.unique_id}. {reuniao.name}')  # Adiciona o name da reunião à Listbox
         atual = atual.proxima
 
 def mostrar_reunioes2(r):
@@ -150,7 +148,7 @@ def mostrar_reunioes2(r):
     while atual is not None:
         reuniao = atual.elemento
         
-        r.insert(END, f'{reuniao.unique_id}. {reuniao.nome}')  # Adiciona o nome da reunião à Listbox
+        r.insert(END, f'{reuniao.unique_id}. {reuniao.name}')  # Adiciona o name da reunião à Listbox
         
         atual = atual.proxima
 
@@ -161,7 +159,7 @@ def abrir_janela_reuniao(evento):
         selected_reunion = reunioes_listbox.get(index)
         parts = selected_reunion.split(". ")
         unique_id = int(parts[0])  # Obtenha o ID exclusivo
-        name = parts[1]  # Obtenha o nome da reunião
+        name = parts[1]  # Obtenha o name da reunião
 
         # Abra a nova janela
         janela_reuniao = Toplevel(janela)
@@ -175,8 +173,8 @@ def abrir_janela_reuniao(evento):
     
         while atual is not None:
             reuniao = atual.elemento
-            if reuniao.nome == name and reuniao.unique_id == unique_id:
-                reuniaolabel = Label(janela_reuniao, text=f'Nome da Reunião: {reuniao.nome}\nID da reunião: {reuniao.unique_id}\n Dia da reunião: {reuniao.dia}\nStatus da Reunião: {reuniao.status}\n Pessoas:')
+            if reuniao.name == name and reuniao.unique_id == unique_id:
+                reuniaolabel = Label(janela_reuniao, text=f'name da Reunião: {reuniao.name}\nID da reunião: {reuniao.unique_id}\n Dia da reunião: {reuniao.dia}\nStatus da Reunião: {reuniao.status}\n Pessoas:')
                 reuniaolabel.pack(pady=5)
                 text = Listbox(janela_reuniao, height=6, width=12)
                 text.pack()
@@ -197,7 +195,7 @@ def adicionarPessoaReuniao():
         selected_person = pessoas_listbox.get(index)
         parts = selected_person.split(". ")
         unique_id = int(parts[0])  # Obtenha o ID exclusivo
-        name_people = parts[1]  # Obtenha o nome da pessoa
+        name_people = parts[1]  # Obtenha o name da pessoa
 
         #nova janela
         janela_ = Toplevel(janela)
@@ -213,24 +211,24 @@ def adicionarPessoaReuniao():
         label.pack(pady=5)
 
         botao = Button(janela_, text=f'Adicionar {name_people} a reunião', command=lambda name=name_people, id_people=unique_id, r=r, label=label: verificarDispobinilidade(name, id_people, r, label))
-
         botao.pack()
+        
 
 
 def verificarDispobinilidade(name_people, id_people, r, label):
     selected_index = r.curselection()
     if selected_index:
         index = int(selected_index[0])
-        selected_reunion = r.get(index)  # Obtenha o nome da reunião a partir da Listbox 'r'
+        selected_reunion = r.get(index)  # Obtenha o name da reunião a partir da Listbox 'r'
         parts = selected_reunion.split(". ")
         unique_id = int(parts[0])  # Obtenha o ID exclusivo
-        name = parts[1]  # Obtenha o nome da reunião
+        name = parts[1]  # Obtenha o name da reunião
         atual__reuniao = lista_reunioes.primeira
         dia_reuniao = None
         while True:
             if atual__reuniao is not None:
                 reuniao = atual__reuniao.elemento
-                if reuniao.nome == name and reuniao.unique_id == unique_id:
+                if reuniao.name == name and reuniao.unique_id == unique_id:
                     dia_reuniao = reuniao.dia - 1
                     break
             atual__reuniao = atual__reuniao.proxima
@@ -253,9 +251,65 @@ def verificarDispobinilidade(name_people, id_people, r, label):
 
             atual = atual.proxima
         linha()
-        print(f"pessoas na reunião <{reuniao.nome}>:\n")
+        print(f"pessoas na reunião <{reuniao.name}>:\n")
         linha()
         reuniao.pessoas.exibirElementos()
+
+def excluir_reuniao():
+    selected_index = reunioes_listbox.curselection()
+    if selected_index:
+        index = int(selected_index[0])
+        selected_reunion = reunioes_listbox.get(index)
+        parts = selected_reunion.split(". ")
+        unique_id = int(parts[0])  # Obtenha o ID exclusivo
+        name = parts[1]  # Obtenha o name da reunião
+
+        # Encontre a reunião correta na lista com base no name e no ID exclusivo
+        atual = lista_reunioes.primeira
+        while atual is not None:
+            reuniao = atual.elemento
+            if reuniao.name == name and reuniao.unique_id == unique_id:
+                # Lógica para desocupar os dias na agenda das pessoas dentro da reunião
+                dia_reuniao = reuniao.dia - 1
+                atual_pessoa = reuniao.pessoas.primeira  # Itera pela lista de pessoas na reunião
+                while atual_pessoa is not None:
+                    pessoa = atual_pessoa.elemento
+                    pessoa.agenda.dias[dia_reuniao] = 0  # Marque o dia como disponível para essa pessoa
+                    atual_pessoa = atual_pessoa.proxima  # Próxima pessoa na lista
+                # Remova a reunião da lista
+                lista_reunioes.remover(reuniao.name, unique_id)
+                reunioes_listbox.delete(index)
+                break
+            atual = atual.proxima
+
+        # Atualize a interface gráfica
+        mostrar_reunioes()
+
+
+
+
+def marcar_reuniao_concluida():
+    selected_index = reunioes_listbox.curselection()
+    if selected_index:
+        index = int(selected_index[0])
+        selected_reunion = reunioes_listbox.get(index)
+        parts = selected_reunion.split(". ")
+        unique_id = int(parts[0])  # Obtenha o ID exclusivo
+        name = parts[1]  # Obtenha o name da reunião
+
+        # Encontre a reunião correta na lista com base no name e no ID exclusivo
+        atual = lista_reunioes.primeira
+        while atual is not None:
+            reuniao = atual.elemento
+            if reuniao.name == name and reuniao.unique_id == unique_id:
+                # Marque a reunião como concluída
+                reuniao.status = "CONCLUÍDA"
+                break
+            atual = atual.proxima
+
+        # Atualize a interface gráfica
+        mostrar_reunioes()
+
 
 
 def linha():
@@ -281,10 +335,10 @@ labelPessoa = Label(aba_pessoa, text='Aqui estão as pessoas:')
 labelPessoa.pack(pady=10)
 pessoas_listbox = Listbox(aba_pessoa)  # Cria uma lista
 pessoas_listbox.pack(padx=10, pady=10)
-nome_p = Label(aba_pessoa, text="Nome:")
-nome_p.pack()
-nome_p_entry = Entry(aba_pessoa)
-nome_p_entry.pack(padx=10, pady=10)
+name_p = Label(aba_pessoa, text="Nome:")
+name_p.pack()
+name_p_entry = Entry(aba_pessoa)
+name_p_entry.pack(padx=10, pady=10)
 botaoAdicionar = Button(aba_pessoa, text="Adicionar Uma Pessoa", command=clicar)
 botaoAdicionar.pack(padx=10, pady=10)
 add_pessoa_reuniao = Button(aba_pessoa, text="Adicionar Pessoa A Uma Reunião", command=adicionarPessoaReuniao)
@@ -309,8 +363,8 @@ conj_abas.add(aba_reuniao, text='Reuniões')
 
 labelReuniao = Label(aba_reuniao, text='Nome: ')
 labelReuniao.pack(pady=10)
-reuniao_nome_entry = Entry(aba_reuniao)
-reuniao_nome_entry.pack()
+reuniao_name_entry = Entry(aba_reuniao)
+reuniao_name_entry.pack()
 diaLabel = Label(aba_reuniao, text="Dia da Reunião: ")
 diaLabel.pack(pady=10)
 dia_reuniao_entry = Entry(aba_reuniao)
@@ -325,7 +379,11 @@ reunioes_listbox = Listbox(aba_reuniao)
 reunioes_listbox.pack(pady=10, padx=10)
 reunioes_listbox.bind("<Double-1>", abrir_janela_reuniao)
 
-pessoas_salaReuniao = Listbox(janela)
+
+botaoConcluir = Button(aba_reuniao, text="Concluir Reunião", command=marcar_reuniao_concluida)
+botaoConcluir.pack()
+botaoExcluir = Button(aba_reuniao, text="Excluir Reunião", command=excluir_reuniao)
+botaoExcluir.pack()
 
 conj_abas.pack(expand=1, fill='both')  # ajuste na tela
 janela.mainloop()
